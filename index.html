@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yes/No Questionnaire</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    form {
+      margin-top: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .btn {
+      margin-top: 20px;
+    }
+
+    .text-success {
+      color: #28a745;
+    }
+
+    h3 {
+      margin-top: 30px;
+    }
+
+    .submitted-data {
+      margin-top: 30px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+
+    .submitted-data h4 {
+      margin-bottom: 10px;
+    }
+
+    .submitted-data .question {
+      font-weight: bold;
+    }
+
+    .submitted-data .answer {
+      margin-left: 10px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1 class="text-success">Yes/No Questionnaire</h1>
+
+    <form id="questionnaireForm" action="https://formspree.io/f/xzzzeveo" method="post">
+      <!-- Info -->
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" name="name" required placeholder="Enter your name">
+      </div>
+
+      <div class="form-group">
+        <label for="place">Place:</label>
+        <input type="text" class="form-control" id="place" name="place" required placeholder="Enter your place">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" name="email" required placeholder="Enter your email">
+      </div>
+
+      <!-- Questions -->
+      <div class="form-group">
+        <label for="q1">Can You Share your Experience?</label>
+        <input type="text" class="form-control" id="q1" name="q1" required>
+      </div>
+
+      <div class="form-group">
+        <label for="q2">What Improvements Would You Suggest For The Product?</label>
+        <input type="text" class="form-control" id="q2" name="q2">
+      </div>
+
+      <div class="form-group">
+        <label for="q3">Did The Product Meet Your Expectations? If not, Why?</label>
+        <input type="text" class="form-control" id="q3" name="q3">
+      </div>
+
+      <div class="form-group">
+        <label for="q4">What Are The Drawbacks?</label>
+        <input type="text" class="form-control" id="q4" name="q4">
+      </div>
+
+      <!-- Yes or No Questions -->
+      <div class="form-group">
+        <label for="isEasy">Is Product Easy To Use?</label>
+        <select class="form-control" id="isEasy" name="isEasy" required>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="isEcoFriendly">Is it Eco-Friendly?</label>
+        <select class="form-control" id="isEcoFriendly" name="isEcoFriendly" required>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="isManualHelpful">Is User Manual Helpful?</label>
+        <select class="form-control" id="isManualHelpful" name="isManualHelpful" required>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="isWorthPrice">Is the Product Worth the Price?</label>
+        <select class="form-control" id="isWorthPrice" name="isWorthPrice" required>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <div id="submittedData" class="submitted-data" style="display: none;">
+      <h3>Submitted Data:</h3>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    // Form submission handler
+    document.getElementById("questionnaireForm").addEventListener("submit", function(event) {
+      event.preventDefault();  // Prevent the form from submitting traditionally
+
+      // Get form values
+      const form = event.target;
+      const user = {
+        name: form.name.value,
+        place: form.place.value,
+        email: form.email.value
+      };
+
+      const questions = {
+        q1: form.q1.value,
+        q2: form.q2.value,
+        q3: form.q3.value,
+        q4: form.q4.value
+      };
+
+      const answers = {
+        isEasy: form.isEasy.value === "true",
+        isEcoFriendly: form.isEcoFriendly.value === "true",
+        isManualHelpful: form.isManualHelpful.value === "true",
+        isWorthPrice: form.isWorthPrice.value === "true"
+      };
+
+      // Prepare submitted data
+      const submittedData = {
+        user: user,
+        questions: questions,
+        answers: answers
+      };
+
+      // Display submitted data
+      displaySubmittedData(submittedData);
+
+      // Clear the form data
+      form.reset(); // This will reset all the form fields to their default values
+    });
+
+    // Function to display the submitted data
+    function displaySubmittedData(data) {
+      const dataOutput = document.getElementById("dataOutput");
+
+      // Display user info
+      dataOutput.innerHTML = `
+        <div><strong>Name:</strong> ${data.user.name}</div>
+        <div><strong>Place:</strong> ${data.user.place}</div>
+        <div><strong>Email:</strong> ${data.user.email}</div>
+        
+        <h4>Questions and Answers:</h4>
+        <div class="question"><strong>Can You Share your Experience?</strong></div>
+        <div class="answer">${data.questions.q1}</div>
+
+        <div class="question"><strong>What Improvements Would You Suggest For The Product?</strong></div>
+        <div class="answer">${data.questions.q2}</div>
+
+        <div class="question"><strong>Did The Product Meet Your Expectations? If not, Why?</strong></div>
+        <div class="answer">${data.questions.q3}</div>
+
+        <div class="question"><strong>What Are The Drawbacks?</strong></div>
+        <div class="answer">${data.questions.q4}</div>
+
+        <h4>Yes/No Questions:</h4>
+        <div class="question"><strong>Is Product Easy To Use?</strong></div>
+        <div class="answer">${data.answers.isEasy ? 'Yes' : 'No'}</div>
+
+        <div class="question"><strong>Is it Eco-Friendly?</strong></div>
+        <div class="answer">${data.answers.isEcoFriendly ? 'Yes' : 'No'}</div>
+
+        <div class="question"><strong>Is User Manual Helpful?</strong></div>
+        <div class="answer">${data.answers.isManualHelpful ? 'Yes' : 'No'}</div>
+
+        <div class="question"><strong>Is the Product Worth the Price?</strong></div>
+        <div class="answer">${data.answers.isWorthPrice ? 'Yes' : 'No'}</div>
+      `;
+
+      // Show the submitted data section
+      document.getElementById("submittedData").style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
