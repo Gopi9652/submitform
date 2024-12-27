@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yes/No Questionnaire</title>
+  <title>Feedback Form</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <style>
     .container {
@@ -38,21 +38,28 @@
   <div class="container">
     <h1 class="text-success">Yes/No Questionnaire</h1>
 
-    <form id="questionnaireForm" action="https://formspree.io/f/xyzzepan" method="post">
+    <form id="questionnaireForm" action="https://script.google.com/macros/s/AKfycbyh8ljCr33OsET9fT525ZL21ltnfC-b4cX8nic7Oz1HUkk4LE0SZhapCUFH8K-ZE5-s/exec" method="post">
       <!-- Info -->
-      <div class="form-group">
-        <label for="name">Name:</label>
-        <input type="text" class="form-control" id="name" name="name" required placeholder="Enter your name">
-      </div>
-
-      <div class="form-group">
-        <label for="place">Place:</label>
-        <input type="text" class="form-control" id="place" name="place" required placeholder="Enter your place">
-      </div>
-
-      <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" class="form-control" id="email" name="email" required placeholder="Enter your email">
+      <div class="row d-flex flex-row">
+        <div>
+          <img src="https://res.cloudinary.com/dngn2hghx/image/upload/v1735274935/tcqveo4uax4sxl4c2svj.jpg" alt="logo" width="300px" height="300px" class="img-fluid p-3">
+        </div>
+        <div>
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="name" required placeholder="Enter your name">
+          </div>
+    
+          <div class="form-group">
+            <label for="place">Place:</label>
+            <input type="text" class="form-control" id="place" name="place" required placeholder="Enter your place">
+          </div>
+    
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" required placeholder="Enter your email">
+          </div>
+        </div>
       </div>
 
       <!-- Questions -->
@@ -120,11 +127,22 @@
       $('#questionnaireForm').on('submit', function (event) {
         event.preventDefault(); // Prevent the default form submission behavior
         
-        // After submission, reset the form
-        this.reset();
-        
-        // Optionally, you can alert the user or perform any other actions here
-        alert('Form submitted successfully!');
+        var formData = $(this).serialize(); // Serialize the form data
+
+        // Send the form data to Google Apps Script
+        $.ajax({
+          url: 'https://script.google.com/macros/s/AKfycbyh8ljCr33OsET9fT525ZL21ltnfC-b4cX8nic7Oz1HUkk4LE0SZhapCUFH8K-ZE5-s/exec',  // Your script URL
+          type: 'POST',
+          data: formData,
+          success: function(response) {
+            alert('Form submitted successfully!');
+            // Optionally, reset the form or show a message to the user
+            $('#questionnaireForm')[0].reset();
+          },
+          error: function() {
+            alert('There was an error submitting the form. Please try again.');
+          }
+        });
       });
     });
   </script>
