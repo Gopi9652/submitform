@@ -11,6 +11,12 @@
       margin: 0 auto;
       padding: 20px;
     }
+    #bgimg{
+      background-image: url(https://res.cloudinary.com/dngn2hghx/image/upload/v1735280733/fqlyb7kjln1onsxkzb83.jpg);
+      background-repeat: no-repeat;
+      background-size: 800px 1000px;
+
+    }
 
     form {
       margin-top: 20px;
@@ -35,14 +41,16 @@
 </head>
 <body>
 
-  <div class="container">
-    <h1 class="text-success">Yes/No Questionnaire</h1>
-
-    <form id="questionnaireForm" action="https://script.google.com/macros/s/AKfycbyh8ljCr33OsET9fT525ZL21ltnfC-b4cX8nic7Oz1HUkk4LE0SZhapCUFH8K-ZE5-s/exec" method="post">
+  <div class="container" >
+   
+    <img src="https://res.cloudinary.com/dngn2hghx/image/upload/v1735274935/tcqveo4uax4sxl4c2svj.jpg" alt="logo" class="img-fluid p-1">
+    <form id="questionnaireForm" action="https://script.google.com/macros/s/AKfycbyh8ljCr33OsET9fT525ZL21ltnfC-b4cX8nic7Oz1HUkk4LE0SZhapCUFH8K-ZE5-s/exec" method="post" class="p-2">
+      <h3 class="text-center">Feedback</h2>
       <!-- Info -->
-      <div class="row d-flex flex-row">
+      
+      <div id="bgimg">
+        <div class="row d-flex flex-row">
         <div>
-          <img src="https://res.cloudinary.com/dngn2hghx/image/upload/v1735274935/tcqveo4uax4sxl4c2svj.jpg" alt="logo" width="300px" height="300px" class="img-fluid p-3">
         </div>
         <div>
           <div class="form-group">
@@ -62,7 +70,7 @@
         </div>
       </div>
 
-      <!-- Questions -->
+        <!-- Questions -->
       <div class="form-group">
         <label for="q1">Can You Share your Experience?</label>
         <input type="text" class="form-control" id="q1" name="q1" required>
@@ -87,6 +95,8 @@
       <div class="form-group">
         <label for="isEasy">Is Product Easy To Use?</label>
         <select class="form-control" id="isEasy" name="isEasy" required>
+         <option value="" selected disabled>SelectOption</option>
+
           <option value="true">Yes</option>
           <option value="false">No</option>
         </select>
@@ -95,6 +105,8 @@
       <div class="form-group">
         <label for="isEcoFriendly">Is it Eco-Friendly?</label>
         <select class="form-control" id="isEcoFriendly" name="isEcoFriendly" required>
+         <option value="" selected disabled>SelectOption</option>
+
           <option value="true">Yes</option>
           <option value="false">No</option>
         </select>
@@ -103,6 +115,8 @@
       <div class="form-group">
         <label for="isManualHelpful">Is User Manual Helpful?</label>
         <select class="form-control" id="isManualHelpful" name="isManualHelpful" required>
+          <option value="" selected disabled>SelectOption</option>
+
           <option value="true">Yes</option>
           <option value="false">No</option>
         </select>
@@ -111,11 +125,14 @@
       <div class="form-group">
         <label for="isWorthPrice">Is the Product Worth the Price?</label>
         <select class="form-control" id="isWorthPrice" name="isWorthPrice" required>
+         <option value="" selected disabled>SelectOption</option>
+
           <option value="true">Yes</option>
           <option value="false">No</option>
         </select>
       </div>
 
+      </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
