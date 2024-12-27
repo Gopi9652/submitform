@@ -31,27 +31,6 @@
     h3 {
       margin-top: 30px;
     }
-
-    .submitted-data {
-      margin-top: 30px;
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      background-color: #f9f9f9;
-    }
-
-    .submitted-data h4 {
-      margin-bottom: 10px;
-    }
-
-    .submitted-data .question {
-      font-weight: bold;
-    }
-
-    .submitted-data .answer {
-      margin-left: 10px;
-      color: #333;
-    }
   </style>
 </head>
 <body>
@@ -132,94 +111,22 @@
 
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-
-    <div id="submittedData" class="submitted-data" style="display: none;">
-      <h3>Submitted Data:</h3>
-    </div>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
-    // Form submission handler
-    document.getElementById("questionnaireForm").addEventListener("submit", function(event) {
-      event.preventDefault();  // Prevent the form from submitting traditionally
-
-      // Get form values
-      const form = event.target;
-      const user = {
-        name: form.name.value,
-        place: form.place.value,
-        email: form.email.value
-      };
-
-      const questions = {
-        q1: form.q1.value,
-        q2: form.q2.value,
-        q3: form.q3.value,
-        q4: form.q4.value
-      };
-
-      const answers = {
-        isEasy: form.isEasy.value === "true",
-        isEcoFriendly: form.isEcoFriendly.value === "true",
-        isManualHelpful: form.isManualHelpful.value === "true",
-        isWorthPrice: form.isWorthPrice.value === "true"
-      };
-
-      // Prepare submitted data
-      const submittedData = {
-        user: user,
-        questions: questions,
-        answers: answers
-      };
-
-      // Display submitted data
-      displaySubmittedData(submittedData);
-
-      // Clear the form data
-      form.reset(); // This will reset all the form fields to their default values
-    });
-
-    // Function to display the submitted data
-    function displaySubmittedData(data) {
-      const dataOutput = document.getElementById("dataOutput");
-
-      // Display user info
-      dataOutput.innerHTML = `
-        <div><strong>Name:</strong> ${data.user.name}</div>
-        <div><strong>Place:</strong> ${data.user.place}</div>
-        <div><strong>Email:</strong> ${data.user.email}</div>
+    $(document).ready(function () {
+      // Handle form submission
+      $('#questionnaireForm').on('submit', function (event) {
+        event.preventDefault(); // Prevent the default form submission behavior
         
-        <h4>Questions and Answers:</h4>
-        <div class="question"><strong>Can You Share your Experience?</strong></div>
-        <div class="answer">${data.questions.q1}</div>
-
-        <div class="question"><strong>What Improvements Would You Suggest For The Product?</strong></div>
-        <div class="answer">${data.questions.q2}</div>
-
-        <div class="question"><strong>Did The Product Meet Your Expectations? If not, Why?</strong></div>
-        <div class="answer">${data.questions.q3}</div>
-
-        <div class="question"><strong>What Are The Drawbacks?</strong></div>
-        <div class="answer">${data.questions.q4}</div>
-
-        <h4>Yes/No Questions:</h4>
-        <div class="question"><strong>Is Product Easy To Use?</strong></div>
-        <div class="answer">${data.answers.isEasy ? 'Yes' : 'No'}</div>
-
-        <div class="question"><strong>Is it Eco-Friendly?</strong></div>
-        <div class="answer">${data.answers.isEcoFriendly ? 'Yes' : 'No'}</div>
-
-        <div class="question"><strong>Is User Manual Helpful?</strong></div>
-        <div class="answer">${data.answers.isManualHelpful ? 'Yes' : 'No'}</div>
-
-        <div class="question"><strong>Is the Product Worth the Price?</strong></div>
-        <div class="answer">${data.answers.isWorthPrice ? 'Yes' : 'No'}</div>
-      `;
-
-      // Show the submitted data section
-      document.getElementById("submittedData").style.display = "block";
-    }
+        // After submission, reset the form
+        this.reset();
+        
+        // Optionally, you can alert the user or perform any other actions here
+        alert('Form submitted successfully!');
+      });
+    });
   </script>
 
 </body>
